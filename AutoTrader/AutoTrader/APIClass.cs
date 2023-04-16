@@ -108,10 +108,12 @@ namespace AutoTrader.AutoTrader
         }
         public List<CandleMinute> GetCandleMinutes(string market, MinuteUnit unit, DateTime to = default(DateTime), int count = 1)
         {
+            
             // 시세 캔들 조회 - 분(Minute) 캔들
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("market", market);
-            parameters.Add("to", to.ToString("yyyy-MM-dd HH:mm:ss"));
+            if (to.Year != 1)
+                parameters.Add("to", to.ToString("yyyy-MM-dd HH:mm:ss"));
             parameters.Add("count", count.ToString());
             var data = param.Get(String.Join("", "/v1/candles/minutes/", (int)unit), parameters, RestSharp.Method.GET);
             return JsonConvert.DeserializeObject<List<CandleMinute>>(data);
