@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AutoTrader.AutoTrader;
 using AutoTrader.AutoTrader.Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using MySql.Data.MySqlClient;
 
 namespace AutoTrader.View
@@ -39,27 +40,56 @@ namespace AutoTrader.View
                 var data = api.GetCandleMinutes("KRW-BTC", APIClass.MinuteUnit._1, default(DateTime), 200);
                 var temp = data.Select(a => a).ToList();
                 foreach (CandleMinute candles in temp)
+                {
+
                     Console.WriteLine(JsonConvert.SerializeObject(candles));
 
-                try
-                {
-                    using (MySqlConnection mysql = new MySqlConnection(_connectionAddress))
+                    var json_candle = JObject.Parse(JsonConvert.SerializeObject(candles));
+                    string market = (string)json_candle["market"];
+                    string candle_date_time_utc = ((DateTime)json_candle["candle_date_time_utc"]).ToString("yyyy-MM-dd HH:mm:dd");
+                    string candle_date_time_kst = ((DateTime)json_candle["candle_date_time_kst"]).ToString("yyyy-MM-dd HH:mm:dd");
+                    double opening_price = (double)json_candle["opening_price"];
+                    double high_price = (double)json_candle["high_price"];
+                    double low_price = (double)json_candle["low_price"];
+                    double trade_price = (double)json_candle["trade_price"];
+                    long timestamp = (long)json_candle["timestamp"];
+                    double candle_acc_trade_price = (double)json_candle["candle_acc_trade_price"];
+                    double candle_acc_trade_volume = (double)json_candle["candle_acc_trade_volume"];
+                    int unit = (int)json_candle["unit"];
+
+                    try
                     {
-                        mysql.Open();
-                        //accounts_table에 name, phone column 데이터를 삽입합니다. id는 자동으로 증가합니다.
-                        string insertQuery = string.Format("INSERT INTO new_table (name, phone) VALUES ('{0}', '{1}');", "testname", "testnumber");
+                        using (MySqlConnection mysql = new MySqlConnection(_connectionAddress))
+                        {
+                            mysql.Open();
+                            //accounts_table에 name, phone column 데이터를 삽입합니다. id는 자동으로 증가합니다.
 
-                        MySqlCommand command = new MySqlCommand(insertQuery, mysql);
-                        if (command.ExecuteNonQuery() != 1)
-                            MessageBox.Show("Failed to insert data.");
+                            string insertQuery = string.Format("INSERT INTO btc_min (" +
+                                "market, candle_date_time_utc, candle_date_time_kst, opening_price, high_price, low_price, " +
+                                "trade_price, timestamp, candle_acc_trade_price, candle_acc_trade_volume, unit) VALUES (" +
+                                "'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}');",
+                                market, candle_date_time_utc, candle_date_time_kst, opening_price, high_price,
+                                low_price, trade_price, timestamp, candle_acc_trade_price, candle_acc_trade_volume, unit);
 
-                        selectTable();
+                            MySqlCommand command = new MySqlCommand(insertQuery, mysql);
+                            if (command.ExecuteNonQuery() != 1)
+                                MessageBox.Show("Failed to insert data.");
+
+                            selectTable();
+
+
+                        }
                     }
+                    catch (Exception exc)
+                    {
+                        MessageBox.Show(exc.Message);
+                    }
+
+                    //string va = (string)JObject["market"].ToString();
                 }
-                catch (Exception exc)
-                {
-                    MessageBox.Show(exc.Message);
-                }
+                    
+
+                
 
 
 
@@ -67,6 +97,34 @@ namespace AutoTrader.View
                 Console.WriteLine(api.GetCandleMinutes("KRW-BTC", APIClass.MinuteUnit._1,default(DateTime),200));
             }
         }
+
+        private void insertTable()
+        {
+            try
+            {
+                using (MySqlConnection mysql = new MySqlConnection(_connectionAddress))
+                {
+                    mysql.Open();
+                    //accounts_table에 name, phone column 데이터를 삽입합니다. id는 자동으로 증가합니다.
+                    string insertQuery = string.Format("INSERT INTO btc_min (name, phone) VALUES ('{0}', '{1}');", "testname", "testnumber");
+
+                    MySqlCommand command = new MySqlCommand(insertQuery, mysql);
+                    if (command.ExecuteNonQuery() != 1)
+                        MessageBox.Show("Failed to insert data.");
+
+                    selectTable();
+
+
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+
+        }
+
+
         private void selectTable()
         {
             try
