@@ -20,6 +20,7 @@ namespace AutoTrader.View
             InitializeComponent();
             this.loginFlag = false;
             button_Login.Click += ReceiveButtonEvent;
+            
         }
 
         private void ReceiveButtonEvent(object sender, EventArgs e)
@@ -75,5 +76,13 @@ namespace AutoTrader.View
             return this.loginFlag;
         }
 
+        private void textBox_Secert_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                button_Login.Click += ReceiveButtonEvent;
+            }
+
+        }
     }
 }

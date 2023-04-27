@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace AutoTrader.View
 {
     partial class LoginForm
@@ -21,6 +23,15 @@ namespace AutoTrader.View
             base.Dispose(disposing);
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (textBox_Access.Text != Properties.Settings.Default.access)
+                Properties.Settings.Default.access = textBox_Access.Text;
+            if (textBox_Secert.Text != Properties.Settings.Default.secret)
+                Properties.Settings.Default.secret = textBox_Secert.Text;
+            Properties.Settings.Default.Save();
+            base.OnFormClosing(e);
+        }
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -69,6 +80,7 @@ namespace AutoTrader.View
             this.textBox_Access.PasswordChar = '*';
             this.textBox_Access.Size = new System.Drawing.Size(314, 25);
             this.textBox_Access.TabIndex = 0;
+            this.textBox_Access.Text = global::AutoTrader.Properties.Settings.Default.access;
             // 
             // textBox_Secert
             // 
@@ -79,6 +91,8 @@ namespace AutoTrader.View
             this.textBox_Secert.PasswordChar = '*';
             this.textBox_Secert.Size = new System.Drawing.Size(314, 25);
             this.textBox_Secert.TabIndex = 1;
+            this.textBox_Secert.Text = global::AutoTrader.Properties.Settings.Default.secret;
+            this.textBox_Secert.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Secert_KeyDown);
             // 
             // label1
             // 

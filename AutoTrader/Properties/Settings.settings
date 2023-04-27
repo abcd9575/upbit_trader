@@ -1,7 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AutoTrader.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="access" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HY6A99MYSFMT35xJ8Mg1o2fqsHO2IrbEtgXDs4ZE</Value>
+    </Setting>
+    <Setting Name="secret" Type="System.String" Scope="User">
+      <Value Profile="(Default)">B1zMcJ9x414x6uGMWeDTDL4ytmoECqkiw4ohsHmX</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
