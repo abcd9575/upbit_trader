@@ -78,7 +78,7 @@ namespace AutoTrader.View
             this.textBox_Access.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.textBox_Access.Name = "textBox_Access";
             this.textBox_Access.PasswordChar = '*';
-            this.textBox_Access.Size = new System.Drawing.Size(314, 25);
+            this.textBox_Access.Size = new System.Drawing.Size(314, 42);
             this.textBox_Access.TabIndex = 0;
             this.textBox_Access.Text = global::AutoTrader.Properties.Settings.Default.access;
             // 
@@ -89,7 +89,7 @@ namespace AutoTrader.View
             this.textBox_Secert.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.textBox_Secert.Name = "textBox_Secert";
             this.textBox_Secert.PasswordChar = '*';
-            this.textBox_Secert.Size = new System.Drawing.Size(314, 25);
+            this.textBox_Secert.Size = new System.Drawing.Size(314, 42);
             this.textBox_Secert.TabIndex = 1;
             this.textBox_Secert.Text = global::AutoTrader.Properties.Settings.Default.secret;
             this.textBox_Secert.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Secert_KeyDown);
@@ -145,7 +145,7 @@ namespace AutoTrader.View
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 36F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 117);
             this.Controls.Add(this.tableLayoutPanel2);

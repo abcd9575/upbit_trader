@@ -125,7 +125,8 @@ namespace AutoTrader.AutoTrader
             // 시세 캔들 조회 - 일(Day) 캔들
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("market", market);
-            parameters.Add("to", to.ToString("yyyy-MM-dd HH:mm:ss"));
+            if (to.Year != 1)
+                parameters.Add("to", to.ToString("yyyy-MM-dd HH:mm:ss"));
             parameters.Add("count", count.ToString());
             var data = param.Get("/v1/candles/days", parameters, RestSharp.Method.GET);
             return JsonConvert.DeserializeObject<List<CandleDay>>(data);
@@ -135,7 +136,8 @@ namespace AutoTrader.AutoTrader
             // 시세 캔들 조회 - 주(Week) 캔들
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("market", market);
-            parameters.Add("to", to.ToString("yyyy-MM-dd HH:mm:ss"));
+            if (to.Year != 1)
+                parameters.Add("to", to.ToString("yyyy-MM-dd HH:mm:ss"));
             parameters.Add("count", count.ToString());
             var data = param.Get("/v1/candles/weeks", parameters, RestSharp.Method.GET);
             return JsonConvert.DeserializeObject<List<CandleWeek>>(data);
@@ -145,7 +147,8 @@ namespace AutoTrader.AutoTrader
             // 시세 캔들 조회 - 월(Month) 캔들
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("market", market);
-            parameters.Add("to", to.ToString("yyyy-MM-dd HH:mm:ss"));
+            if (to.Year != 1)
+                parameters.Add("to", to.ToString("yyyy-MM-dd HH:mm:ss"));
             parameters.Add("count", count.ToString());
             var data = param.Get("/v1/candles/months", parameters, RestSharp.Method.GET);
             return JsonConvert.DeserializeObject<List<CandleMonth>>(data);

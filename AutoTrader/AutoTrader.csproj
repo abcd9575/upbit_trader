@@ -148,6 +148,7 @@
     <Compile Include="AutoTrader\Model\OrderBook.cs" />
     <Compile Include="AutoTrader\Model\OrderChance.cs" />
     <Compile Include="AutoTrader\Model\Ticker.cs" />
+    <Compile Include="AutoTrader\Mysql.cs" />
     <Compile Include="AutoTrader\NoParam.cs" />
     <Compile Include="AutoTrader\Param.cs" />
     <Compile Include="Form1.cs">

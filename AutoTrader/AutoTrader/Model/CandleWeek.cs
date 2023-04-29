@@ -16,7 +16,7 @@ namespace AutoTrader.AutoTrader.Model {
         public long timestamp;
         public double candle_acc_trade_price;
         public double candle_acc_trade_volume;
-        public string first_day_of_period 	;
+        public string first_day_of_period;
 
     }
 }
