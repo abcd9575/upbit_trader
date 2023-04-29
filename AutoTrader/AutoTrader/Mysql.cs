@@ -97,9 +97,18 @@ namespace AutoTrader.AutoTrader
                 string selectQuery = string.Format("SELECT * FROM "+ tablename +" ORDER BY candle_date_time_kst ASC LIMIT 1;");
                 MySqlCommand command = new MySqlCommand(selectQuery, mysql);
                 MySqlDataReader table = command.ExecuteReader();
-
-                if (command.ExecuteNonQuery() != 1)
-                MessageBox.Show("Failed to select data.");
+                table.Read();
+                if (table.FieldCount < 1)
+                    MessageBox.Show("Failed to select data.");
+                else
+                    for (int i = 0; i < table.FieldCount-1; i++)
+                    {
+                        string field = table.GetName(i);
+                        Console.WriteLine(table[field]);
+                    }
+                table.Close();
+                //if (command.ExecuteNonQuery() != 1)
+                
             }
 
             return DateTime.Now;
